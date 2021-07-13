@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="RoundedControl.OutlinedButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:RoundedControl"
+             xmlns:converters="clr-namespace:RoundedControl.Converters"
+             mc:Ignorable="d" x:Name="this">
+    <UserControl.Resources>
+        <converters:HeightToCornerRadiusConverter x:Key="HeightToCornerRadiusConverter"/>
+        <converters:BorderThicknessToMarginConverter x:Key="BorderThicknessToMarginConverter"/>
+        <Style TargetType="{x:Type local:OutlinedButton}">
+            <Setter Property="Foreground" Value="DimGray"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type local:OutlinedButton}">
+                        <Border
+                            x:Name="PART_Background"
+                            BorderThickness="{Binding BorderThickness, ElementName=this}"
+                            Margin="{Binding BorderThickness, ElementName=this, Converter={StaticResource BorderThicknessToMarginConverter}}"
+                            BorderBrush="{Binding Foreground, ElementName=this}"
+                            Background="{Binding Background, ElementName=this}"
+                            CornerRadius="{TemplateBinding Height, Converter={StaticResource HeightToCornerRadiusConverter}}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}">
+                            <ContentPresenter x:Name="PART_Content" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            </ContentPresenter>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" TargetName="PART_Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="PART_Content" Value="White"/>
+                                <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+    </UserControl.Resources>
+</UserControl>
