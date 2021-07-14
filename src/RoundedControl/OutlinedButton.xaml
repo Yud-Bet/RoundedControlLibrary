@@ -9,6 +9,7 @@
     <UserControl.Resources>
         <converters:HeightToCornerRadiusConverter x:Key="HeightToCornerRadiusConverter"/>
         <converters:BorderThicknessToMarginConverter x:Key="BorderThicknessToMarginConverter"/>
+        <converters:LighterColorConverter x:Key="LighterColorConverter"/>
         <Style TargetType="{x:Type local:OutlinedButton}">
             <Setter Property="Foreground" Value="DimGray"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -38,6 +39,10 @@
                                 <Setter Property="Background" TargetName="PART_Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"/>
                                 <Setter Property="TextElement.Foreground" TargetName="PART_Content" Value="White"/>
                                 <Setter Property="Cursor" Value="Hand"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="BorderBrush" TargetName="PART_Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground, Converter={StaticResource LighterColorConverter}}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="PART_Content" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground, Converter={StaticResource LighterColorConverter}}"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

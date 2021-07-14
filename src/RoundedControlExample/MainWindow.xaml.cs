@@ -23,6 +23,10 @@ namespace RoundedControlExample
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
+            ClickCMD = new ClickCommand();
         }
+
+        public ICommand ClickCMD { get; }
     }
 }

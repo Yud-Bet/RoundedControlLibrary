@@ -7,8 +7,8 @@
         mc:Ignorable="d" Background="Snow"
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
-        <roundedcontrol:ColorButton Content="Hallo" Margin="2"/>
-        <roundedcontrol:ColorButton Content="Ya Halo" Margin="2"/>
+        <roundedcontrol:OutlinedButton Command="{Binding ClickCMD}" Content="Hallo" Margin="2"/>
+        <roundedcontrol:ColorButton Command="{Binding ClickCMD}" Content="Ya Halo" Margin="2"/>
         <roundedcontrol:ColorButton Content="Bonjour" Margin="2"/>
     </StackPanel>
 </Window>
