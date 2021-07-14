@@ -92,9 +92,25 @@ namespace RoundedControl
             }
         }
 
-        public object CommandParameter { get; }
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            set { SetValue(CommandParameterProperty, value); }
+        }
 
-        public IInputElement CommandTarget { get; }
+        // Using a DependencyProperty as the backing store for CommandParameter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandParameterProperty =
+            DependencyProperty.Register("CommandParameter", typeof(object), typeof(OutlinedButton), new PropertyMetadata(null));
+
+        public IInputElement CommandTarget
+        {
+            get { return (IInputElement)GetValue(CommandTargetProperty); }
+            set { SetValue(CommandTargetProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CommandTarget.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CommandTargetProperty =
+            DependencyProperty.Register("CommandTarget", typeof(IInputElement), typeof(OutlinedButton), new PropertyMetadata(null));
 
         public static RoutedEvent ClickEvent = EventManager.RegisterRoutedEvent("Click", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(OutlinedButton));
 
@@ -108,7 +124,7 @@ namespace RoundedControl
         {
             RoutedEventArgs args = new RoutedEventArgs(ClickEvent, this);
             RaiseEvent(args);
-            Command?.Execute(args);
+            Command?.Execute(CommandParameter);
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
